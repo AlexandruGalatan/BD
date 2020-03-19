@@ -1,3 +1,4 @@
+--Laborator 3 - Galatan Alexandru-Cristian
 --1
 SELECT last_name || ' ' ||
     first_name || ' castiga ' ||
@@ -97,3 +98,98 @@ SELECT last_name, job_id, salary,
         ELSE salary
     END "salariu renegociat"
 FROM employees;
+
+---17
+SELECT last_name,d. department_id, department_name
+FROM employees e, departments d
+WHERE e.department_id = d.department_id;
+
+--- Standard
+SELECT last_name,d. department_id, department_name
+FROM employees e INNER JOIN departments d ON 
+e.department_id = d.department_id;
+
+
+---18
+SELECT DISTINCT d.department_id, j.job_id, job_title
+FROM employees e JOIN departments d ON
+e.department_id = d.department_id
+JOIN jobs j ON
+j.job_id = e.job_id
+WHERE d. department_id = 30;
+
+--19
+SELECT e.last_name, d.department_name, l.city, c.country_name
+FROM employees e 
+JOIN departments d ON e.department_id = d.department_id
+JOIN locations l ON d.location_id = l.location_id
+JOIN countries c ON l.country_id = c.country_id
+WHERE e.commission_pct IS NOT NULL;
+
+--20
+SELECT e.last_name, d.department_name
+FROM employees e, departments d
+WHERE e.department_id = d.department_id
+    AND UPPER(e.last_name) LIKE('%A%');
+   
+--21
+SELECT e.last_name, j.job_title, d.department_id, d.department_name
+FROM employees e
+JOIN jobs j on e.job_id = j.job_id
+JOIN departments d on e.department_id = d.department_id
+JOIN locations l on d.location_id = l.location_id
+WHERE UPPER(l.city) = 'OXFORD';
+
+--22
+SELECT angajat.employee_id "Ang#", angajat.last_name "Angajat",
+    sef.employee_id "Mgr#", sef.last_name "Manager"
+FROM employees angajat, employees sef
+WHERE angajat.manager_id = sef.employee_id;
+
+--23
+SELECT angajat.employee_id "Ang#", angajat.last_name "Angajat",
+    sef.employee_id "Mgr#", sef.last_name "Manager"
+FROM employees angajat
+LEFT OUTER JOIN employees sef ON angajat.manager_id = sef.employee_id;
+
+---24
+SELECT e1.employee_id, e1.last_name, e1.department_id, 
+    e2.employee_id, e2.last_name
+FROM employees e1, employees e2
+WHERE e1.department_id = e2.department_id
+AND e1.employee_id <> e2.employee_id;
+
+
+---25
+DESC jobs;
+
+SELECT last_name, j.job_id, job_title,
+    department_name, salary
+FROM employees e, departments d, jobs j
+WHERE e.department_id = d.department_id (+)
+AND j.job_id = e.job_id;
+
+
+---26
+SELECT *
+FROM employees
+WHERE UPPER(last_name) = 'GATES';
+
+SELECT e1.last_name, e1.hire_date
+FROM employees e1, employees e2
+WHERE UPPER(e2.last_name) = 'GATES'
+    AND e1.hire_date > e2.hire_date
+ORDER BY e1.hire_date;
+
+SELECT e1.last_name, e1.hire_date
+FROM employees e1 
+JOIN employees e2 ON e1.hire_date > e2.hire_date
+WHERE UPPER(e2.last_name) = 'GATES'
+ORDER BY e1.hire_date;
+
+--27
+SELECT angajat.last_name "Angajat", angajat.hire_date "Data_ang",
+    sef.last_name "Manager", sef.hire_date "Data_mgr"
+FROM employees angajat, employees sef
+WHERE angajat.manager_id = sef.employee_id
+    AND angajat.hire_date < sef.hire_date;
