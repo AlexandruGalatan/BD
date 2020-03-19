@@ -1,4 +1,3 @@
---Laborator 3 - Galatan Alexandru-Cristian
 --1
 SELECT last_name || ' ' ||
     first_name || ' castiga ' ||
