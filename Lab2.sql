@@ -158,7 +158,6 @@ FROM employees e1, employees e2
 WHERE e1.department_id = e2.department_id
 AND e1.employee_id <> e2.employee_id;
 
-
 ---25
 DESC jobs;
 
@@ -167,7 +166,6 @@ SELECT last_name, j.job_id, job_title,
 FROM employees e, departments d, jobs j
 WHERE e.department_id = d.department_id (+)
 AND j.job_id = e.job_id;
-
 
 ---26
 SELECT *
